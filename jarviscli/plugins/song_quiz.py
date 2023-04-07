@@ -5,7 +5,7 @@ import os
 from spotipy.oauth2 import SpotifyClientCredentials
 from plugin import plugin
 
-@plugin('song_quiz')
+@plugin('song quiz')
 def song_quiz(jarvis,s):
 
     # Authenticate with Spotify API using your own credentials
