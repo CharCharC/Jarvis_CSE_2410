@@ -48,3 +48,5 @@ pdf2image
 python-nmap
 yeelight
 haversine
+spotipy
+pygame
