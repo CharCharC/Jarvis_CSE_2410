@@ -17,7 +17,7 @@ def songquiz(jarvis, s):
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
     # Search for tracks based on theme
-    theme = input("Choose a Spotify Theme by Selecting a #: \n"
+    theme = jarvis.input("Choose a Spotify Theme by Selecting a #: \n"
                        "1. Hip-Hop \n"
                        "2. Rock \n"
                        "3. Pop \n")
@@ -37,7 +37,7 @@ def songquiz(jarvis, s):
 
         # Play a short preview of a random track
         track = random.choice(tracks)
-        print(f"Now playing: {track['name']} by {track['artists'][0]['name']}")
+        jarvis.say(f"Now playing: {track['name']} by {track['artists'][0]['name']}")
 
         # Use pygame to play the preview of the track
         preview_url = track['preview_url']
@@ -52,22 +52,22 @@ def songquiz(jarvis, s):
             pygame.mixer.music.play()
 
         # Prompt user to guess the name and artist
-        guess_name = input("Guess the name of the song: ")
-        guess_artist = input("Guess the name of the artist: ")
+        guess_name = jarvis.input("Guess the name of the song: ")
+        guess_artist = jarvis.input("Guess the name of the artist: ")
 
         # Check user's answer
         correct_name = track["name"]
         correct_artist = track["artists"][0]["name"]
         if guess_name.lower() == correct_name.lower() and guess_artist.lower() == correct_artist.lower():
-            print("Correct!")
+            jarvis.say("Correct!")
             score += 1  # increment score by 1
         else:
-            print(f"Incorrect. The correct answer was {correct_name} by {correct_artist}.")
+            jarvis.say(f"Incorrect. The correct answer was {correct_name} by {correct_artist}.")
 
         # Clean up the downloaded preview file
         if preview_url:
             os.remove(preview_file)
 
-        print(f"Your score is {score}.")  # show the score to the user
+        jarvis.say(f"Your score is {score}.")  # show the score to the user
 
-    print("Game over!")
+    jarvis.say("Game over!")
