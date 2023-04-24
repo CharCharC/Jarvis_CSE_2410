@@ -1,0 +1,46 @@
+import unittest
+import urllib.request
+import bs4
+from Tstl_finder import *
+
+
+class TestSTLFinder(unittest.TestCase):
+
+    def test_get_models_valid_url(self):
+        url = "https://thangs.com/search/panther?scope=all"
+        models = get_models(url)
+        num_models = len(models)
+        self.assertTrue(num_models > 0)
+
+    def test_get_models_invalid_url(self):
+        url = "invalid url"
+        models = get_models(url)
+        num_models = len(models)
+        self.assertEqual(num_models, 0)
+
+    def test_search(self):
+        result = stl_finder("search")
+        self.assertEqual(result, "search")
+
+    def test_saved(self):
+        result = stl_finder("saved")
+        self.assertEqual(result, "view_saved_models")
+
+    def test_save_model_valid_i(self):
+        result = save_model(1, True, "saved_models.txt")
+        self.assertTrue(result)
+
+    def test_save_model_invalid_i(self):
+        result = save_model(5, True, "saved_models.txt")
+        self.assertTrue(result)
+
+    def test_save_model_valid_file(self):
+        result = save_model(1, False, "saved_models.txt")
+        self.assertTrue(result)
+
+    def test_save_model_invalid_file(self):
+        result = save_model(1, False, "invalid_file")
+        self.assertTrue(result)
+
+if __name__ == '__main__':
+    unittest.main()
